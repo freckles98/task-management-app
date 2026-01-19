@@ -83,11 +83,6 @@ public class Task {
         this.priority = priority;
     }
 
-    // Should not do this - shortcut for testing purposes only
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void update(String title, String description, String priority, LocalDate dueDate) {
         this.title = title;
         this.description = description;
