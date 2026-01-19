@@ -1,13 +1,27 @@
 package com.chelseavancoller.backend.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
-@Controller
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.chelseavancoller.backend.models.Task;
+import com.chelseavancoller.backend.service.TaskService;
+
+@RestController
+@RequestMapping("/api/tasks")
 public class TaskController {
-    @RequestMapping("/tasks")
+
+    private TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    @GetMapping("/retrieve")
     public List<Task> getAllTasks() {
-        // Implementation here
+        return taskService.getAllTasks();
     }
 
 }
