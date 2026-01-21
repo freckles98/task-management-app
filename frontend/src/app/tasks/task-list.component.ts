@@ -26,13 +26,13 @@ export class TaskListComponent implements OnInit {
 
   fetchTasks() {
     // Our lovely backend
-    const url = 'http://localhost:9090/api/tasks';
+    const url = 'http://localhost:9090/api/tasks/retrieve';
 
     
     // We strictly use this for testing until we build the real Login form.
     // Replace 'user' and 'your-uuid-password' with what you see in the logs.
     // We encode "user:password" into Base64 for Basic Auth.
-    const authHeader = 'Basic ' + btoa('user:6983461f-8b25-47d8-afed-8a559afe7ec4');
+    const authHeader = 'Basic ' + btoa('user:89ab5d8a-1745-4b3a-ad4e-40d4b6bfc088');
 
     const headers = new HttpHeaders({
       'Authorization': authHeader
