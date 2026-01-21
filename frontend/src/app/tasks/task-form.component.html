@@ -1,14 +1,39 @@
-<section>
+<section class="form-container">
   <h2>Create Task</h2>
 
-  <input type="text" placeholder="Task title" />
-  <input type="date" />
+  <form (ngSubmit)="addTask()">
+    
+    <div class="form-group">
+      <label>Title</label>
+      <input 
+        type="text" 
+        placeholder="e.g., Fix the bug" 
+        [(ngModel)]="newTask.title" 
+        name="title" 
+        required 
+      />
+    </div>
 
-  <select>
-    <option value="LOW">LOW</option>
-    <option value="MEDIUM">MEDIUM</option>
-    <option value="HIGH">HIGH</option>
-  </select>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea 
+        placeholder="Details about the task..."
+        [(ngModel)]="newTask.description"
+        name="description"
+        rows="3">
+      </textarea>
+    </div>
 
-  <button>Add Task</button>
+    <div class="form-group">
+      <label>Due Date</label>
+      <input 
+        type="date" 
+        [(ngModel)]="newTask.dueDate" 
+        name="dueDate" 
+      />
+    </div>
+
+    <button type="submit" class="btn-submit">Add Task</button>
+
+  </form>
 </section>
