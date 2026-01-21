@@ -1,10 +1,21 @@
-<section>
+<section class="container">
   <h2>Your Tasks</h2>
 
-  <ul>
-    <li *ngFor="let task of tasks">
-      <span>{{ task.title }}</span>
-      <span class="dueDate">{{ task.dueDate }}</span>
-    </li>
-  </ul>
+  <div class="task-grid">
+    <div *ngFor="let task of tasks" class="task-card" [class.is-complete]="task.completed">
+      
+      <div class="card-header">
+        <h3 class="task-title">{{ task.title }}</h3>
+        <span class="due-date">{{ task.dueDate | date:'mediumDate' }}</span>
+      </div>
+
+      <p class="task-desc">{{ task.description }}</p>
+
+      <div class="card-footer">
+        <span class="status-badge" *ngIf="task.completed">✅ Completed</span>
+        <span class="status-badge pending" *ngIf="!task.completed">⏳ Pending</span>
+      </div>
+
+    </div>
+  </div>
 </section>

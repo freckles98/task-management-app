@@ -12,7 +12,8 @@ interface Task {
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './task-list.component.html'
+  templateUrl: './task-list.component.html',
+  styleUrl: './task-list.component.css'
 })
 export class TaskListComponent implements OnInit {
   // Inject the HTTP Client
@@ -32,7 +33,7 @@ export class TaskListComponent implements OnInit {
     // We strictly use this for testing until we build the real Login form.
     // Replace 'user' and 'your-uuid-password' with what you see in the logs.
     // We encode "user:password" into Base64 for Basic Auth.
-    const authHeader = 'Basic ' + btoa('user:89ab5d8a-1745-4b3a-ad4e-40d4b6bfc088');
+    const authHeader = 'Basic ' + btoa('user:password');
 
     const headers = new HttpHeaders({
       'Authorization': authHeader
