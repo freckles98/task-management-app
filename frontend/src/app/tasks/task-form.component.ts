@@ -12,22 +12,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class TaskFormComponent {
   private http = inject(HttpClient);
-
-  // Matches your interface (excluding id/completed which Backend handles)
-  newTask = {
+    newTask: { title: string; description: string; dueDate: string | null } = {
     title: '',
     description: '',
-    dueDate: ''
-  };
+    dueDate: null // <--- Use null, not ''
+    };
 
   addTask() {
-    const url = 'http://localhost:9090/api/tasks';
+    const url = 'http://localhost:9090/api/tasks/create';
     
     // Remember to use the current password from your logs!
-    const authHeader = 'Basic ' + btoa('user:YOUR_GENERATED_PASSWORD_HERE');
+    const authHeader = 'Basic ' + btoa('user:password');
     const headers = new HttpHeaders({ 'Authorization': authHeader });
+    const payload : any = { ...this.newTask };
 
-    this.http.post(url, this.newTask, { headers }).subscribe({
+    this.http.post(url, payload, { headers }).subscribe({
       next: (response) => {
         console.log('Task Created!', response);
         alert('Task added successfully!');
