@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -8,30 +8,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './task-form.component.html',
-  styleUrl: './task-form.component.css'
+  styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent {
   private http = inject(HttpClient);
-    newTask: { title: string; description: string; dueDate: string | null } = {
+
+  @Output() taskCreated = new EventEmitter<void>();
+
+  newTask: { title: string; description: string; dueDate: string | null } = {
     title: '',
     description: '',
-    dueDate: null // <--- Use null, not ''
-    };
+    dueDate: null
+  };
 
   addTask() {
     const url = 'http://localhost:9090/api/tasks/create';
-    
-    // Remember to use the current password from your logs!
     const authHeader = 'Basic ' + btoa('user:password');
-    const headers = new HttpHeaders({ 'Authorization': authHeader });
-    const payload : any = { ...this.newTask };
+    const headers = new HttpHeaders({ Authorization: authHeader });
 
-    this.http.post(url, payload, { headers }).subscribe({
-      next: (response) => {
-        console.log('Task Created!', response);
+    this.http.post(url, this.newTask, { headers }).subscribe({
+      next: () => {
         alert('Task added successfully!');
-        // Reset form
-        this.newTask = { title: '', description: '', dueDate: '' };
+        this.newTask = { title: '', description: '', dueDate: null };
+        this.taskCreated.emit(); // close modal
       },
       error: (err) => {
         console.error('Error creating task:', err);

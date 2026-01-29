@@ -30,6 +30,8 @@ public class TaskController {
     }
 
     @PostMapping("/create")
+    // Making sure this is a valid Task object if it bypassing the frontend
+    // validation
     public Task createTask(@Valid @RequestBody Task task) {
         return taskService.createTask(task);
 

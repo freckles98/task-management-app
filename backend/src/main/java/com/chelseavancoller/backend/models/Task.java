@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity // used to define a class that will be peristed to a database table.
 // Use the annotation @Table to change the name of the table
@@ -15,9 +17,11 @@ public class Task {
     private Long id;
     // For these fields you can specifiy column names, constraints, etc with
     // @Column. But happy to leave as is
+    @NotBlank(message = "Title is required")
     private String title;
     private String description;
     private boolean completed;
+    @FutureOrPresent(message = "Due date must be today or in the future")
     private LocalDate dueDate;
     // Other potential fields: priority, tags, status
 
