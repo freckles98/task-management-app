@@ -1,0 +1,29 @@
+<header class="app-header">
+  <div class="header-content">
+    <h1>🗂️ Task Manager</h1>
+    <button class="btn-add" (click)="openModal()">
+      <span class="icon">+</span> Add Task
+    </button>
+    </div>
+</header>
+
+<main class="app-container">
+  <section class="card">
+    <app-task-list></app-task-list>
+  </section>
+</main>
+
+<!-- Modal Overlay -->
+<div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
+
+<!-- <app-task-form (taskCreated)="handleTaskCreated()"></app-task-form> -->
+
+
+<!-- Modal -->
+<div class="modal" *ngIf="isModalOpen">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Create Task</h2>
+    <app-task-form (taskCreated)="handleTaskCreated()"></app-task-form>
+    <button class="close-btn" (click)="closeModal()">Cancel</button>
+  </div>
+</div>

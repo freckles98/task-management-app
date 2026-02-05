@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { AuthService } from '../services/auth.service';
 interface Task {
   id: number;
   title: string;
@@ -21,8 +22,10 @@ export class TaskListComponent implements OnInit {
   
   tasks: Task[] = [];
 
+
   ngOnInit() {
     this.fetchTasks();
+    this.loadTasks();
   }
 
   fetchTasks() {
@@ -48,5 +51,12 @@ export class TaskListComponent implements OnInit {
         console.error('Failed to fetch tasks', err);
       }
     });
+  }
+  loadTasks() {
+  const authHeader = 'Basic ' + btoa('user:password'); // or JWT token
+  const headers = new HttpHeaders({ Authorization: authHeader });
+
+  this.http.get<any[]>('http://localhost:9090/api/tasks/retrieve', { headers })
+    .subscribe(data => this.tasks = data);
   }
 }
