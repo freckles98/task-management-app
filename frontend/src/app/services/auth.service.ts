@@ -11,6 +11,16 @@ export class AuthService {
   
   private apiUrl = 'http://localhost:9090/api/auth';
 
+  register(credentials: any) {
+  // Use the new endpoint
+  return this.http.post<any>(`${this.apiUrl}/register`, credentials).pipe(
+    tap(response => {
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem('token', response.token);
+      }
+    })
+  );
+}
   login(credentials: any) {
     return this.http.post<any>(`${this.apiUrl}/authenticate`, credentials).pipe(
       tap(response => {
@@ -22,14 +32,11 @@ export class AuthService {
     );
   }
 
-  getToken(): string | null {
-    // Check if we are in the browser
-    if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem('token');
-    }
-    // If on the server, return null (no token exists on the server)
-    return null;
-  }
+getToken(): string | null {
+  // If you are using Angular Universal (SSR), this might crash.
+  // Standard web apps should just be:
+  return localStorage.getItem('token'); 
+}
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {

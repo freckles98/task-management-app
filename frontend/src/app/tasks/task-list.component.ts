@@ -32,17 +32,9 @@ export class TaskListComponent implements OnInit {
     // Our lovely backend
     const url = 'http://localhost:9090/api/tasks/retrieve';
 
-    
-    // We strictly use this for testing until we build the real Login form.
-    // Replace 'user' and 'your-uuid-password' with what you see in the logs.
-    // We encode "user:password" into Base64 for Basic Auth.
-    const authHeader = 'Basic ' + btoa('user:password');
+  
 
-    const headers = new HttpHeaders({
-      'Authorization': authHeader
-    });
-
-    this.http.get<Task[]>(url, { headers }).subscribe({
+    this.http.get<Task[]>(url).subscribe({
       next: (data) => {
         this.tasks = data;
         console.log('Tasks loaded:', data);

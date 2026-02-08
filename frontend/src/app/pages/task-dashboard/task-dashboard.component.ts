@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { RouterOutlet } from '@angular/router';
 
-
 import { ViewChild } from '@angular/core';
 import { TaskListComponent } from '../../tasks/task-list.component';
 import { TaskFormComponent } from '../../tasks/task-form.component';

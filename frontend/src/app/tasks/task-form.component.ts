@@ -1,8 +1,7 @@
 import { Component, inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-task-form',
@@ -23,9 +22,13 @@ export class TaskFormComponent {
   };
 
   addTask() {
+
+    if (!this.newTask.title || !this.newTask.dueDate) {
+    alert("Please fill in all fields!");
+    return;
+    }
+
     const url = 'http://localhost:9090/api/tasks/create';
-    const authHeader = 'Basic ' + btoa('user:password');
-    const headers = new HttpHeaders({ Authorization: authHeader });
   
     this.http.post(url, this.newTask).subscribe({
       next: () => {

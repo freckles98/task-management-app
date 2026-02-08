@@ -14,8 +14,6 @@ import com.chelseavancoller.backend.models.Task;
 import com.chelseavancoller.backend.models.User;
 import com.chelseavancoller.backend.service.TaskService;
 
-import jakarta.validation.Valid;
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/tasks")
